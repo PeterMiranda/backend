@@ -17,8 +17,9 @@ def index(request):
     response_http = requests.get(url)
     response_dict = json.loads(response_http.content)
 
-    print("Endpoint ", url)
-    print("Response ", response_dict)
+    # ----- ----- IMPRIME RESPUESTAS!!!!!
+    #print("Endpoint ", url)
+    #print("Response ", response_dict)
 
     # Respuestas totales
     total_responses = len(response_dict.keys())
