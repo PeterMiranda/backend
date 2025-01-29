@@ -1,5 +1,11 @@
 from django.shortcuts import render
 
+# Importe el decorador login_required
+from django.contrib.auth.decorators import login_required
+
+# Importe el decorador login_required
+from django.contrib.auth.decorators import login_required, permission_required
+
 # Create your views here.
 from django.http import HttpResponse
 
@@ -7,6 +13,9 @@ from django.http import HttpResponse
 import requests
 import json
 
+# Restricción de acceso con @login_required
+@login_required
+@permission_required('main.index_viewer', raise_exception=True)
 def index(request):
 
     # Arme el endpoint del REST API
