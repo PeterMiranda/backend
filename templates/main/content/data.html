@@ -8,7 +8,7 @@
     </h2>
 
     <!-- Cards -->
-    <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+    <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-2">
       <!-- Card -->
       <div
         class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
@@ -52,7 +52,7 @@
           <p
             class="text-lg font-semibold text-gray-700 dark:text-gray-200">
             <!-- START - first_responses -->
-            YYY
+            {{ first_responses }}
             <!-- END - first_responses -->
           </p>
         </div>
@@ -75,7 +75,7 @@
           <p
             class="text-lg font-semibold text-gray-700 dark:text-gray-200">
             <!-- START - last_responses -->
-            ZZZ
+            {{ last_responses }}
             <!-- END - last_responses -->
           </p>
         </div>
@@ -100,7 +100,7 @@
           <p
             class="text-lg font-semibold text-gray-700 dark:text-gray-200">
             <!-- START - high_rate_responses -->
-            VVV
+            {{ top_day }}
             <!-- END - high_rate_responses -->
           </p>
         </div>
@@ -167,10 +167,19 @@
         <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
           Respuestas por día
         </h4>
-        <canvas id="line"></canvas>
+        <canvas id="bar"></canvas>
       </div>
     </div>
     <!-- END - Gráficos -->
+
+    <div class="grid gap-6 mb-8 md:grid-cols-1">
+      <div
+      class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+      <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
+        Respuestas por mes
+      </h4>
+      <canvas id="line" ></canvas>
+    </div>
 
   </div>
 </main>

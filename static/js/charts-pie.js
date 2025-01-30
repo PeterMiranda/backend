@@ -41,29 +41,44 @@ countCommentsByHour = (data) => {
   const labels = ["0 a.m. - 8 a.m.", "8 a.m. - 16 p.m.", "16 p.m. - 0 a.m."];
   const counts = [0, 0, 0]
 
+  function parseCustomDate(dateStr) {
+
+    // Formato "30/01/2025, 10:15 AM"
+    let [datePart, timePart] = dateStr.split(", ");
+    let [day, month, year] = datePart.split("/").map(Number);
+    let [time, period] = timePart.split(" ");
+    let [hours, minutes] = time.split(":").map(Number);
+
+    // Convertir formato AM/PM a 24 horas
+    if (period === "a. m." && hours !== 12) {
+        hours += 12;
+    } else if (period === "p. m." && hours === 12) {
+        hours = 0;
+    }
+
+    return new Date(year, month - 1, day, hours, minutes);
+  }
+
   Object.values(data).forEach(record => {
 
-         const savedTime = record.joinTime;
-       if (!savedTime) {
-           return;
-       }
+    const savedTime = record.joinTime;
+    if (!savedTime) {
+        return;
+    }
+    const dt = parseCustomDate(savedTime);
+    const hour = dt.getHours();
 
-       // Convertir a formato de hora AM/PM
-       const formattedTime = savedTime.replace('a. m.', 'AM').replace('p. m.', 'PM');
-          
-       // Crear objeto Date con la cadena de tiempo
-       const dt = new Date(Date.parse(formattedTime.replace(/(\d{2}\/\d{2}\/\d{4}), (\d{2}):(\d{2}):(\d{2}) (AM|PM)/, '$1 $2:$3:$4 $5')));
-       const hour = dt.getHours();
 
-       // Clasificar en el rango correspondiente
-       if (hour >= 0 && hour < 8) {
-           counts[0]++;
-       } else if (hour >= 8 && hour < 16) {
-           counts[1]++;
-       } else {
-           counts[2]++;
-       }
-   });
+    // Clasificar en el rango correspondiente
+    if (hour >= 0 && hour < 8) {
+        counts[0]++;
+    } else if (hour >= 8 && hour < 16) {
+        counts[1]++;
+    }
+    else {
+      counts[2]++;
+    }
+  });
 
    return { labels, counts };
 }
