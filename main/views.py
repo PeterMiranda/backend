@@ -17,7 +17,9 @@ import json
 from collections import defaultdict
 from datetime import datetime
 
-
+# Arreglos para PythonAnywhere
+from api.views import LandingAPI
+from rest_framework.request import Request
 
 # Restricción de acceso con @login_required
 @login_required
@@ -25,12 +27,21 @@ from datetime import datetime
 def index(request):
 
     # Arme el endpoint del REST API
-    current_url = request.build_absolute_uri()
-    url = current_url + '/api/v1/landing'
+    #current_url = request.build_absolute_uri()
+    #url = current_url + '/api/v1/landing'
 
     # Petición al REST API
-    response_http = requests.get(url)
-    response_dict = json.loads(response_http.content)
+    #response_http = requests.get(url)
+    #response_dict = json.loads(response_http.content)
+
+    # Crear un objeto Request de DRF basado en el request original
+    drf_request = Request(request)
+
+    # Llamar directamente al método GET de LandingAPI
+    response = LandingAPI().get(drf_request)
+
+    # Extraer los datos JSON directamente
+    response_dict = response.data
 
     # ----- ----- IMPRIME RESPUESTAS!!!!!
     #print("Endpoint ", url)
